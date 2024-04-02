@@ -1,0 +1,7 @@
+<h1>Index</h1>
+<% @posts.each do |post| %> 
+  <div> 
+    <h2><%= link_to post.title, post %></h2>
+    <h3><%= post.body %></h3>
+  </div>
+<% end %> 
