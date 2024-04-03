@@ -1,7 +1,14 @@
 <h1>Index</h1>
 <% @posts.each do |post| %> 
-  <div> 
+  <div class="bg-gray-100 px-4 py-1 rounded hover:bg-gray-200">
     <h2><%= link_to post.title, post %></h2>
+    <% if post.draft? %>
+      <div class="p-2 bg-gray-600">Draft</div>
+    <% elsif post.scheduled? %>
+      <div class:="p-2 bg-blue-600">Scheduled to <%= post.published_at.strftime("%b, %d %Y") %></div>
+    <% elsif post.published? %>
+      <div class:="p-2 bg-blue-600"> <%= post.published_at.strftime("%b, %d %Y") %></div>
+    <% end %>
     <h3><%= post.body %></h3>
   </div>
 <% end %> 
