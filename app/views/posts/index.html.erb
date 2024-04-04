@@ -5,10 +5,10 @@
     <% if post.draft? %>
       <div class="p-2 bg-gray-600">Draft</div>
     <% elsif post.scheduled? %>
-      <div class:="p-2 bg-blue-600">Scheduled to <%= post.published_at.strftime("%b, %d %Y") %></div>
+      <div class="p-2 bg-blue-600">Scheduled to <%= post.published_at.strftime("%b, %d %Y") %></div>
     <% elsif post.published? %>
-      <div class:="p-2 bg-blue-600"> <%= post.published_at.strftime("%b, %d %Y") %></div>
+      <div class="p-2 bg-blue-600"> <%= post.published_at.strftime("%b, %d %Y") %></div>
     <% end %>
-    <h3><%= post.body %></h3>
+    <p><%= post.body %></p>
   </div>
 <% end %> 
