@@ -6,7 +6,7 @@ class PostsController < ApplicationController
     @posts = user_signed_in? ? Post.all.sorted : Post.published.sorted
   end
 
-  def show        
+  def show
   end
 
   def new
