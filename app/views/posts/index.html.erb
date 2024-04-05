@@ -9,6 +9,6 @@
     <% elsif post.published? %>
       <div class="p-2 bg-blue-600"> <%= post.published_at.strftime("%b, %d %Y") %></div>
     <% end %>
-    <p><%= post.body %></p>
+    <p><%= truncate(post.content.to_plain_text, length: 150) %></p>
   </div>
 <% end %> 
