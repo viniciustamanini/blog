@@ -9,7 +9,7 @@
       columns-2
       max-w-full 
       prose 
-      bg-black 
+    bg-black 
       px-80 
       py-2 
       align-middle;
@@ -23,12 +23,26 @@
       no-underline;
   }
 
+  .dropdown-button {
+    @apply
+      inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white 
+      px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 
+      ring-inset ring-gray-300 hover:bg-gray-50
+  }
+
+  .dropdown-menu {
+    @apply
+      absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y 
+    divide-gray-100 rounded-md bg-white shadow-lg ring-1 
+    ring-black ring-opacity-5 focus:outline-none
+  }
   .dropdown-item {
     @apply
     text-gray-700 
-      block px-4 py-2 text-sm
-      py-1
-      hover:bg-gray-100
+      block px-4 py-1 text-sm
+    hover:bg-gray-100
+      no-underline
+      text-right
   }
 
   .header-link-to {
