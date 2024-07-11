@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  institution_name: MyString
+  degree: MyString
+  field_of_study: MyString
+  started_on: 2024-07-11
+  ended_on: 2024-07-11
+  person: one
+
+two:
+  institution_name: MyString
+  degree: MyString
+  field_of_study: MyString
+  started_on: 2024-07-11
+  ended_on: 2024-07-11
+  person: two
