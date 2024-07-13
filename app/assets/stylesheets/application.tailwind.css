@@ -4,22 +4,33 @@
 @import 'actiontext.css';
 
 @layer components {
-  .header {
+  .navbar {
     @apply 
-      columns-2
+      columns-3
       max-w-full 
       prose 
-    bg-black 
-      px-80 
+      bg-black 
+      px-60 
       py-2 
       align-middle;
   }
 
-  .header-button {
+  .navbar-button {
     @apply 
-    bg-gray-100 px-4
+      bg-gray-100 px-4
       rounded 
-    hover:bg-gray-300 
+      hover:bg-gray-300 
+      focus:bg-gray-300
+      no-underline;
+  }
+
+  .navbar-link-to {
+    @apply
+      bg-gray-100 
+      px-4 py-2
+      max-h-6
+      rounded 
+      hover:bg-gray-300 
       no-underline;
   }
 
@@ -28,31 +39,22 @@
       inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white 
       px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 
       ring-inset ring-gray-300 hover:bg-gray-50
+      cursor-pointer border-none
   }
 
   .dropdown-menu {
     @apply
       absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y 
-    divide-gray-100 rounded-md bg-white shadow-lg ring-1 
-    ring-black ring-opacity-5 focus:outline-none
+      divide-gray-100 rounded-md bg-white shadow-lg ring-1 
+      ring-black ring-opacity-5 focus:outline-none
   }
   .dropdown-item {
     @apply
-    text-gray-700 
+      text-gray-700 
       block px-4 py-1 text-sm
-    hover:bg-gray-100
+      hover:bg-gray-100
       no-underline
       text-right
-  }
-
-  .header-link-to {
-    @apply
-    bg-gray-100 
-      px-4 py-2
-      max-h-6
-      rounded 
-    hover:bg-gray-300 
-      no-underline;
   }
   
   .page-title {

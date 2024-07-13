@@ -1,20 +1,23 @@
 <% @posts.each do |post| %> 
   <div class="bg-gray-100 px-10 py-3 rounded hover:bg-gray-300 prose mx-auto mb-2">
-    <div class="columns-2 px-2 py-1">
-      <div class="p-2 text-2xl max-w-64">
-        <%= link_to post.title, post %>
+    <%= link_to post, :action => 'go' do %>
+      <div class="columns-2 px-2 py-1">
+        <div class="p-2 text-2xl max-w-64 font-bold">
+          <%= post.title %> 
+        </div>
+        
+        <% if post.draft? %>
+          <div class="p-2 bg-gray-200 max-w-20">Draft</div>
+        <% elsif post.scheduled? %>
+          <div class="p-2 bg-blue-200">Scheduled to <%= post.published_at.strftime("%b, %d %Y") %></div>
+        <% elsif post.published? %>
+          <div class="py-2"> <%= post.published_at.strftime("%b, %d %Y") %></div>
+        <% end %>
       </div>
-      
-      <% if post.draft? %>
-        <div class="p-2 bg-gray-200 max-w-20">Draft</div>
-      <% elsif post.scheduled? %>
-        <div class="p-2 bg-blue-200">Scheduled to <%= post.published_at.strftime("%b, %d %Y") %></div>
-      <% elsif post.published? %>
-        <div class="py-2"> <%= post.published_at.strftime("%b, %d %Y") %></div>
-      <% end %>
-    </div>
-    <div class="content">
-      <p><%= truncate(post.content.to_plain_text, length: 150) %></p>
-    </div>
+
+      <div class="content">
+        <p><%= truncate(post.content.to_plain_text, length: 150) %></p>
+      </div>
+    <% end %> 
   </div>  
 <% end %> 
