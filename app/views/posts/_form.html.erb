@@ -21,5 +21,10 @@
     <%= form.datetime_select :published_at, include_blank: true %>
   </div>
 
+  <div>
+    <%= form.label :auto_fill_date, "Today" %>
+    <%= check_box_tag :auto_fill_date, '1', false, id: 'auto_fill_date_checkbox' %>
+  </div>
+
   <%= form.button %>
 <% end %>

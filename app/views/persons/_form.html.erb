@@ -1,0 +1,62 @@
+<%= form_with model: person do |form| %>
+  <% if form.object.errors.any? %>
+    <div>
+      <% form.object.errors.full_messages.each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+    </div>
+  <% end %> 
+
+  <div>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :email %>
+    <%= form.email_field :email %>
+  </div>
+
+  <div>
+    <%= form.label :phone %>
+    <%= form.text_field :phone %>
+  </div>
+
+  <div>
+    <%= form.label :role %>
+    <%= form.text_field :role %>
+  </div>
+
+  <div>
+    <%= form.label :summary %>
+    <%= form.text_area :summary %>
+  </div>
+
+  <h1> Educations </h1>
+  <%= form.fields_for :educations do |education_form| %>
+    <%= render 'education_fields', f: education_form %>
+  <% end %>
+  <%= link_to 'Add Education', '#', class: 'btn btn-secondary mt-2', data: { target: 'add-education' } %>
+
+  <h1> Certificates </h1>
+  <%= form.fields_for :certificates do |certificate_form| %>
+    <%= render 'certificate_fields', f: certificate_form %>
+  <% end %>
+  <%= link_to 'Add Certificate', '#', class: 'btn btn-secondary mt-2', data: { target: 'add-certificate' } %>
+
+  <h1> Experiences </h1>
+  <%= form.fields_for :professional_experiences do |experience_form| %>
+    <%= render 'professional_experience_fields', f: experience_form %>
+  <% end %>
+  <%= link_to 'Add Experience', '#', class: 'btn btn-secondary mt-2', data: { target: 'add-experience' } %>
+
+  <h1> Skills </h1>
+  <%= form.fields_for :skills do |skill_form| %>
+    <%= render 'skill_fields', f: skill_form %>
+  <% end %>
+  <%= link_to 'Add Skill', '#', class: 'btn btn-secondary mt-2', data: { target: 'add-skill' } %>
+
+  <div>
+    <%= form.submit "Save", class: "btn btn-primary" %>
+  </div>
+<% end %>

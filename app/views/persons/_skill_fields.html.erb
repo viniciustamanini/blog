@@ -1,0 +1,12 @@
+<div class="skill-fields">
+  <%= f.hidden_field :id %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+
+  <%= f.label :proficiency_level %>
+  <%= f.number_field :proficiency_level %>
+
+  <%= f.check_box :_destroy %> <%= f.label :_destroy, 'Remove' %>
+</div>
+
+<button type="button" class="add-skill-btn bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded">Add Skill</button>

@@ -1,0 +1,14 @@
+<div class="certificate-fields">
+  <%= f.hidden_field :id %>
+  <%= f.label :issuing_organization %>
+  <%= f.text_field :issuing_organization %>
+
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+
+  <%= f.label :issued_on %>
+  <%= f.date_field :issued_on %>
+
+  <%= f.check_box :_destroy %> <%= f.label :_destroy, 'Remove' %>
+</div>
+

@@ -1,12 +1,9 @@
-console.log('test');
-
 function toggleDropdown() {
   console.log('toggle');
   document.getElementById('dropdown-button')
 }
 
 window.onclick = function(event) {
-  console.log('click');
   if (event.target.matches('.dropbtn'))
     return;
 
