@@ -1,19 +1,29 @@
 <% if @persons.any? %>
   <% @persons.each do |person| %>
-    <div class="cv-card bg-white shadow-md rounded-lg border border-gray-200 p-6 mb-6">
-      <div class="cv-header flex justify-between items-center border-b border-gray-300 pb-4 mb-4">
+    <div
+      class="
+        cv-card bg-white shadow-md rounded-lg border border-gray-200 p-6 mb-6
+      "
+    >
+      <div
+        class="
+          cv-header flex justify-between items-center border-b border-gray-300 pb-4 mb-4
+        "
+      >
         <div class="cv-header-left">
-          <h2 class="text-2xl font-bold text-gray-800"><%= person.name.presence || 'Name not provided' %></h2>
-          <h4 class="text-lg text-gray-600"><%= person.role.presence || 'Role not specified' %></h4>
+          <h2 class="text-2xl font-bold text-gray-800"><%= person.name.presence || "Name not provided" %></h2>
+          <h4 class="text-lg text-gray-600"><%= person.role.presence || "Role not specified" %></h4>
         </div>
         <div class="cv-header-right text-right">
-          <p class="text-gray-600"><strong>Email:</strong> <%= person.email.presence || 'Not available' %></p>
-          <p class="text-gray-600"><strong>Phone:</strong> <%= person.phone.presence || 'Not available' %></p>
+          <p class="text-gray-600"><strong>Email:</strong>
+            <%= person.email.presence || "Not available" %></p>
+          <p class="text-gray-600"><strong>Phone:</strong>
+            <%= person.phone.presence || "Not available" %></p>
         </div>
       </div>
       <div class="cv-summary mb-6">
         <h3 class="text-xl font-semibold text-blue-600 mb-2">Summary</h3>
-        <p class="text-gray-700"><%= truncate(person.summary.presence || 'No summary available.', length: 250) %></p>
+        <p class="text-gray-700"><%= truncate(person.summary.presence || "No summary available.", length: 250) %></p>
       </div>
 
       <% if person.educations&.any? %>
@@ -22,13 +32,16 @@
           <ul class="list-disc ml-6 text-gray-700">
             <% person.educations.each do |education| %>
               <li>
-                <strong><%= education.institution_name.presence || 'Institution not specified' %></strong> - 
-                <%= education.degree.presence || 'Degree not mentioned' %> in 
-                <%= education.field_of_study.presence || 'Field not specified' %>
+                <strong><%= education.institution_name.presence || "Institution not specified" %></strong>
+                -
+                <%= education.degree.presence || "Degree not mentioned" %>
+                in
+                <%= education.field_of_study.presence || "Field not specified" %>
                 <br>
                 <em class="text-gray-500">
-                  <%= education.started_on.presence || 'Start date not provided' %> - 
-                  <%= education.ended_on.presence || 'Currently' %>
+                  <%= education.started_on.presence || "Start date not provided" %>
+                  -
+                  <%= education.ended_on.presence || "Currently" %>
                 </em>
               </li>
             <% end %>
@@ -42,9 +55,10 @@
           <ul class="list-disc ml-6 text-gray-700">
             <% person.certificates.each do |certificate| %>
               <li>
-                <strong><%= certificate.name.presence || 'Certificate not named' %></strong>, 
-                <%= certificate.issuing_organization.presence || 'Issuing organization not mentioned' %> 
-                (<%= certificate.issued_on.presence || 'Issue date not available' %>)
+                <strong><%= certificate.name.presence || "Certificate not named" %></strong>,
+                <%= certificate.issuing_organization.presence ||
+                  "Issuing organization not mentioned" %>
+                (<%= certificate.issued_on.presence || "Issue date not available" %>)
               </li>
             <% end %>
           </ul>
@@ -57,13 +71,15 @@
           <ul class="list-disc ml-6 text-gray-700">
             <% person.professional_experiences.each do |experience| %>
               <li>
-                <strong><%= experience.company_name.presence || 'Company not specified' %></strong> - 
-                <%= experience.role.presence || 'Role not mentioned' %>
+                <strong><%= experience.company_name.presence || "Company not specified" %></strong>
+                -
+                <%= experience.role.presence || "Role not mentioned" %>
                 <br>
-                <p><%= experience.description.presence || 'No description available.' %></p>
+                <p><%= experience.description.presence || "No description available." %></p>
                 <em class="text-gray-500">
-                  <%= experience.started_on.presence || 'Start date not provided' %> - 
-                  <%= experience.ended_on.presence || 'End date not provided' %>
+                  <%= experience.started_on.presence || "Start date not provided" %>
+                  -
+                  <%= experience.ended_on.presence || "End date not provided" %>
                 </em>
               </li>
             <% end %>
@@ -77,24 +93,40 @@
           <ul class="flex flex-wrap gap-2">
             <% person.skills.each do |skill| %>
               <li class="bg-blue-100 text-blue-700 py-1 px-3 rounded">
-                <%= skill.name.presence || 'Skill not named' %> 
-                (<%= skill.proficiency_level.presence || 'Proficiency not specified' %>)
+                <%= skill.name.presence || "Skill not named" %>
+                (<%= skill.proficiency_level.presence || "Proficiency not specified" %>)
               </li>
             <% end %>
           </ul>
         </div>
       <% end %>
 
-      <div class="cv-actions mt-4 flex gap-4">
-        <%= link_to 'Show', person_path(person), class: 'bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded' %>
-        <%= link_to 'Edit', edit_person_path(person), class: 'bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded' %>
-        <%= button_to "Delete", person, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: 'bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded', data: { turbo_frame: 'person-list' } %>
-      </div>
+      <% if user_signed_in? %>
+        <div class="cv-actions mt-4 flex gap-4">
+          <%= link_to "Edit",
+          edit_person_path(person),
+          class:
+            "bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded" %>
+          <%= button_to "Delete",
+          person,
+          method: :delete,
+          data: {
+            turbo_confirm: "Are you sure?",
+          },
+          class: "bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded",
+          data: {
+            turbo_frame: "person-list",
+          } %>
+        </div>
+      <% end %>
     </div>
   <% end %>
 <% else %>
   <% if user_signed_in? %>
-    <%= link_to "Create", new_person_path, class: "bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded" %>
+    <%= link_to "Create",
+    new_person_path,
+    class:
+      "bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded" %>
   <% else %>
     <p class="text-gray-600">No persons available.</p>
   <% end %>

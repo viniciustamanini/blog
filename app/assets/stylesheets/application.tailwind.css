@@ -1,67 +1,82 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import 'actiontext.css';
+@import "actiontext.css";
 
 @layer components {
-  .navbar {
-    @apply 
-      columns-3
-      max-w-full 
-      prose 
-      bg-black 
-      px-60 
-      py-2 
-      align-middle;
+  .body {
+    @apply bg-[#D1D1D1] font-system;
   }
 
-  .navbar-button {
-    @apply 
-      bg-gray-100 px-4
-      rounded 
-      hover:bg-gray-300 
-      focus:bg-gray-300
-      no-underline;
+  .navbar {
+    @apply flex justify-between items-center max-w-full prose bg-[#161623] px-60 py-2 shadow-md;
   }
 
   .navbar-link-to {
-    @apply
-      bg-gray-100 
-      px-4 py-2
-      max-h-6
-      rounded 
-      hover:bg-gray-300 
-      no-underline;
+    @apply text-white hover:text-gray-300 no-underline;
+  }
+
+  .dropdown-container {
+    @apply relative;
   }
 
   .dropdown-button {
-    @apply
-      inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white 
-      px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 
-      ring-inset ring-gray-300 hover:bg-gray-50
-      cursor-pointer border-none
+    @apply flex items-center justify-center gap-x-1.5 rounded-md bg-[#B957CE] px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-[#5994CE] cursor-pointer border-none;
   }
 
   .dropdown-menu {
-    @apply
-      absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y 
-      divide-gray-100 rounded-md bg-white shadow-lg ring-1 
-      ring-black ring-opacity-5 focus:outline-none
+    @apply absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none;
   }
+
   .dropdown-item {
-    @apply
-      text-gray-700 
-      block px-4 py-1 text-sm
-      hover:bg-gray-100
-      no-underline
-      text-right
+    @apply text-gray-700 block px-4 py-1 text-sm hover:bg-gray-100 no-underline text-right;
   }
-  
-  .page-title {
-    @apply py-2 px-1 mx-auto prose align-middle;
+
+  .border-highlight {
+    @apply border-[#3A4E93];
+  }
+
+  .icon-background {
+    @apply bg-[#6D68A8];
+  }
+
+  .post-card {
+    @apply bg-[#161623] prose px-1 py-1 rounded-md max-w-65 mx-auto mt-2 mb-2 shadow-lg transition-transform duration-200 ease-in-out;
+  }
+
+  .post-card:hover {
+    @apply shadow-2xl -translate-y-1 -translate-x-1;
+  }
+
+  .post-title {
+    @apply p-2 text-2xl max-w-64 font-bold text-white;
+  }
+
+  .post-status {
+    @apply p-2 text-white text-right;
+  }
+
+  .draft {
+    @apply bg-[#6D68A8];
+  }
+
+  .scheduled {
+    @apply bg-[#5994CE];
+  }
+
+  .post-date {
+    @apply py-2 text-gray-400;
   }
 
   .content {
-    @apply py-2 px-1 mx-auto prose align-middle;
+    @apply px-2 py-1 text-gray-200;
+  }
+
+  .month-header {
+    @aplly bg-[D68A8];
+  }
+
+  .footer {
+    @apply bg-[#161623];
   }
 }

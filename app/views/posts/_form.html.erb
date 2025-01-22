@@ -5,7 +5,7 @@
         <div><%= message %></div>
       <% end %>
     </div>
-  <% end %> 
+  <% end %>
   <div>
     <%= form.label :title %>
     <%= form.text_field :title %>
@@ -23,8 +23,8 @@
 
   <div>
     <%= form.label :auto_fill_date, "Today" %>
-    <%= check_box_tag :auto_fill_date, '1', false, id: 'auto_fill_date_checkbox' %>
+    <%= check_box_tag :auto_fill_date, "1", false, id: "auto_fill_date_checkbox" %>
   </div>
 
-  <%= form.button %>
+  <%= form.submit "Create" %>
 <% end %>

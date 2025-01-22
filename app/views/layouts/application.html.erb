@@ -10,15 +10,15 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="">
+  <body class="body">
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
-    
+
     <div class="navbar">
       <%= link_to "Home", root_path, class: "navbar-link-to" %>
       <%= link_to "about me", persons_path, class: "navbar-link-to" %>
       <% if user_signed_in? %>
-        <div class="dropdown-button" onclick="toggleDropdown()">
+        <div class="dropdown-button" onclick="console.log('click')">
           <div class="dropdown-menu">
             <div class="py-1" role="none">
               <%= link_to "New post", new_post_path, class: "dropdown-item" %>
@@ -27,7 +27,12 @@
               <% end %>
             </div>
             <div class="py-1" role="none">
-              <%= link_to "Logout", destroy_user_session_path, data: { "turbo-method": :delete }, class: "dropdown-item" %>
+              <%= link_to "Logout",
+              destroy_user_session_path,
+              data: {
+                "turbo-method": :delete,
+              },
+              class: "dropdown-item" %>
             </div>
           </div>
         </div>
@@ -35,5 +40,8 @@
     </div>
 
     <%= yield %>
+
+    <footer class='footer'>
+    </footer>
   </body>
 </html>
