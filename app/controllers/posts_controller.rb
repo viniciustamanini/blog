@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
-  before_action :set_blog_post, only: [:show, :edit, :destroy, :update]
+  before_action :authenticate_user!, except: %i[index show]
+  before_action :set_blog_post, only: %i[show edit destroy update]
 
   def index
     @posts = user_signed_in? ? Post.all.sorted : Post.published.sorted
