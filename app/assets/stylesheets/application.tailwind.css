@@ -76,6 +76,10 @@
     @aplly bg-[D68A8];
   }
 
+  .tags {
+    @apply bg-[#D1D1D1];
+  }
+
   .footer {
     @apply bg-[#161623];
   }

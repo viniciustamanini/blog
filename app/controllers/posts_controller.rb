@@ -3,11 +3,16 @@ class PostsController < ApplicationController
   before_action :set_blog_post, only: %i[show edit destroy update]
 
   def index
-    @posts = user_signed_in? ? Post.all.sorted : Post.published.sorted
+    scope = user_signed_in? ? Post.all.sorted : Post.published.sorted
+
+    @posts = if params[:tag].present?
+               scope.tagged_with(params[:tag])
+             else
+               scope
+             end
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @post = Post.new
@@ -22,8 +27,7 @@ class PostsController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @post.update(post_params)
@@ -41,7 +45,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :content, :published_at)
+    params.require(:post).permit(:title, :content, :published_at, :tag_list)
   end
 
   def set_blog_post

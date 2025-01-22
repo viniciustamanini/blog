@@ -33,6 +33,11 @@
           <p><%= truncate(post.content.to_plain_text, length: 150) %></p>
         </div>
       <% end %>
+
+      <div class="tags">
+        <p>Tags:
+          <%= raw post.tag_list.map { |t| link_to t, tag_path(t) }.join(", ") %></p>
+      </div>
     </div>
   <% end %>
 <% end %>

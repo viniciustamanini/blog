@@ -6,6 +6,7 @@
       <% end %>
     </div>
   <% end %>
+
   <div>
     <%= form.label :title %>
     <%= form.text_field :title %>
@@ -26,5 +27,10 @@
     <%= check_box_tag :auto_fill_date, "1", false, id: "auto_fill_date_checkbox" %>
   </div>
 
-  <%= form.submit "Create" %>
+  <div>
+    <%= form.label :tag_list, "Tags" %>
+    <%= form.text_field :tag_list %>
+  </div>
+
+  <%= form.button %>
 <% end %>
