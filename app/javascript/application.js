@@ -5,3 +5,4 @@ import "trix";
 import "@rails/actiontext";
 import "packs/form";
 import "packs/add_data";
+import "packs/theme";

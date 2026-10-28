@@ -7,6 +7,12 @@
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <script>
+      (function() {
+        var theme = localStorage.getItem("tui-theme") || "dark";
+        document.documentElement.setAttribute("data-theme", theme);
+      })();
+    </script>
     <%= javascript_importmap_tags %>
   </head>
 
@@ -25,6 +31,9 @@
       </div>
 
       <div class="flex items-center gap-2">
+        <button type="button" id="theme-toggle-btn" class="tui-btn" title="Alternar tema Light/Dark">
+          <span id="theme-toggle-label">[theme: dark]</span>
+        </button>
         <% if user_signed_in? %>
           <span class="text-xs text-[#9ece6a] hidden sm:inline">● root@blog</span>
           <%= link_to "[+new_post]", new_post_path, class: "tui-btn" %>

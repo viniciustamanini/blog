@@ -4,9 +4,44 @@
 @import "actiontext.css";
 
 @layer base {
+  :root,
+  html[data-theme="dark"] {
+    --tui-bg: #1a1b26;
+    --tui-mantle: #16161e;
+    --tui-surface: #1f2335;
+    --tui-surface-hover: #24283b;
+    --tui-border: #414868;
+    --tui-text: #c0caf5;
+    --tui-subtext: #a9b1d6;
+    --tui-muted: #565f89;
+    --tui-cyan: #7dcfff;
+    --tui-blue: #7aa2f7;
+    --tui-purple: #bb9af7;
+    --tui-green: #9ece6a;
+    --tui-amber: #e0af68;
+    --tui-red: #f7768e;
+  }
+
+  html[data-theme="light"] {
+    --tui-bg: #e1e2e7;
+    --tui-mantle: #d5d6db;
+    --tui-surface: #f2f3f7;
+    --tui-surface-hover: #e9ebf0;
+    --tui-border: #9699a3;
+    --tui-text: #1f2335;
+    --tui-subtext: #343b58;
+    --tui-muted: #6172b0;
+    --tui-cyan: #007197;
+    --tui-blue: #2e7de9;
+    --tui-purple: #7847bd;
+    --tui-green: #387000;
+    --tui-amber: #8c6c3e;
+    --tui-red: #c64343;
+  }
+
   ::selection {
-    background-color: #7dcfff;
-    color: #1a1b26;
+    background-color: var(--tui-cyan);
+    color: var(--tui-bg);
   }
 
   input[type="text"],
@@ -16,60 +51,115 @@
   input[type="date"],
   select,
   textarea {
-    @apply bg-[#16161e] text-[#c0caf5] border border-[#414868] rounded-none px-3 py-1.5 font-mono text-sm focus:border-[#7dcfff] focus:ring-1 focus:ring-[#7dcfff] focus:outline-none;
+    background-color: var(--tui-mantle);
+    color: var(--tui-text);
+    border: 1px solid var(--tui-border);
+    @apply rounded-none px-3 py-1.5 font-mono text-sm focus:outline-none;
+  }
+
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  input[type="password"]:focus,
+  input[type="number"]:focus,
+  input[type="date"]:focus,
+  select:focus,
+  textarea:focus {
+    border-color: var(--tui-cyan);
+    box-shadow: 0 0 0 1px var(--tui-cyan);
   }
 
   input[type="checkbox"] {
-    @apply bg-[#16161e] border-[#414868] text-[#7dcfff] rounded-none focus:ring-[#7dcfff] focus:ring-offset-[#1a1b26];
+    background-color: var(--tui-mantle);
+    border-color: var(--tui-border);
+    color: var(--tui-cyan);
+    @apply rounded-none;
   }
 
   label {
-    @apply text-[#7aa2f7] text-xs uppercase tracking-wider font-semibold block mb-1;
+    color: var(--tui-blue);
+    @apply text-xs uppercase tracking-wider font-semibold block mb-1;
   }
 }
 
 @layer components {
   .body {
-    @apply bg-[#1a1b26] text-[#c0caf5] font-mono min-h-screen flex flex-col antialiased;
+    background-color: var(--tui-bg);
+    color: var(--tui-text);
+    @apply font-mono min-h-screen flex flex-col antialiased transition-colors duration-150;
   }
 
   /* Tmux / Neovim Top Bar */
   .navbar {
-    @apply flex flex-wrap justify-between items-center w-full bg-[#16161e] border-b border-[#414868] px-4 md:px-8 py-2 text-sm;
+    background-color: var(--tui-mantle);
+    border-bottom: 1px solid var(--tui-border);
+    @apply flex flex-wrap justify-between items-center w-full px-4 md:px-8 py-2 text-sm;
   }
 
   .navbar-link-to {
-    @apply text-[#a9b1d6] hover:text-[#1a1b26] hover:bg-[#7dcfff] px-2.5 py-1 no-underline transition-colors duration-100 border border-transparent hover:border-[#7dcfff];
+    color: var(--tui-subtext);
+    @apply px-2.5 py-1 no-underline transition-colors duration-100 border border-transparent;
+  }
+
+  .navbar-link-to:hover {
+    background-color: var(--tui-cyan);
+    color: var(--tui-bg);
+    border-color: var(--tui-cyan);
   }
 
   .navbar-link-active {
-    @apply text-[#1a1b26] bg-[#7aa2f7] font-bold px-2.5 py-1 no-underline;
+    background-color: var(--tui-blue);
+    color: var(--tui-bg);
+    @apply font-bold px-2.5 py-1 no-underline;
   }
 
   /* TUI Box / Window */
   .tui-box {
-    @apply relative bg-[#1f2335] border border-[#414868] p-5 mb-6;
+    background-color: var(--tui-surface);
+    border: 1px solid var(--tui-border);
+    @apply relative p-5 mb-6;
   }
 
   .tui-box-title {
-    @apply inline-block bg-[#1f2335] text-[#7dcfff] font-bold text-xs uppercase tracking-wider px-2 -mt-8 mb-4 border border-[#414868];
+    background-color: var(--tui-surface);
+    color: var(--tui-cyan);
+    border: 1px solid var(--tui-border);
+    @apply inline-block font-bold text-xs uppercase tracking-wider px-2 -mt-8 mb-4;
   }
 
   .tui-prompt {
-    @apply text-sm text-[#9ece6a] mb-4 flex items-center gap-2;
+    color: var(--tui-green);
+    @apply text-sm mb-4 flex items-center gap-2;
   }
 
   /* Post List & Cards */
   .month-header {
-    @apply text-[#bb9af7] font-bold text-sm uppercase tracking-widest mt-8 mb-3 flex items-center gap-2 before:content-['┌──['] after:content-[']──────'] before:text-[#414868] after:text-[#414868];
+    color: var(--tui-purple);
+    @apply font-bold text-sm uppercase tracking-widest mt-8 mb-3 flex items-center gap-2 before:content-['┌──['] after:content-[']──────'];
+  }
+
+  .month-header::before,
+  .month-header::after {
+    color: var(--tui-border);
   }
 
   .post-card {
-    @apply bg-[#1f2335] border border-[#414868] p-4 mb-4 transition-colors duration-100 hover:border-[#7dcfff] hover:bg-[#24283b];
+    background-color: var(--tui-surface);
+    border: 1px solid var(--tui-border);
+    @apply p-4 mb-4 transition-colors duration-100;
+  }
+
+  .post-card:hover {
+    background-color: var(--tui-surface-hover);
+    border-color: var(--tui-cyan);
   }
 
   .post-title {
-    @apply text-lg font-bold text-[#c0caf5] group-hover:text-[#7dcfff] flex items-center gap-2;
+    color: var(--tui-text);
+    @apply text-lg font-bold flex items-center gap-2;
+  }
+
+  .group:hover .post-title {
+    color: var(--tui-cyan);
   }
 
   .post-status {
@@ -77,62 +167,170 @@
   }
 
   .draft {
-    @apply bg-[#bb9af7]/10 text-[#bb9af7] border-[#bb9af7];
+    color: var(--tui-purple);
+    border-color: var(--tui-purple);
+    background-color: color-mix(in srgb, var(--tui-purple) 12%, transparent);
   }
 
   .scheduled {
-    @apply bg-[#e0af68]/10 text-[#e0af68] border-[#e0af68];
+    color: var(--tui-amber);
+    border-color: var(--tui-amber);
+    background-color: color-mix(in srgb, var(--tui-amber) 12%, transparent);
   }
 
   .post-date {
-    @apply text-xs text-[#565f89] border border-[#414868] bg-[#16161e] px-2 py-0.5;
+    color: var(--tui-muted);
+    border: 1px solid var(--tui-border);
+    background-color: var(--tui-mantle);
+    @apply text-xs px-2 py-0.5;
   }
 
   .content {
-    @apply py-2 text-sm text-[#a9b1d6] leading-relaxed;
+    color: var(--tui-subtext);
+    @apply py-2 text-sm leading-relaxed;
   }
 
   .tags {
-    @apply mt-3 pt-2 border-t border-dashed border-[#414868] text-xs text-[#565f89] flex flex-wrap items-center gap-2;
+    border-top: 1px dashed var(--tui-border);
+    color: var(--tui-muted);
+    @apply mt-3 pt-2 text-xs flex flex-wrap items-center gap-2;
   }
 
   .tui-tag {
-    @apply text-[#7dcfff] hover:bg-[#7dcfff] hover:text-[#1a1b26] px-1.5 py-0.5 bg-[#16161e] border border-[#414868] no-underline transition-colors;
+    color: var(--tui-cyan);
+    background-color: var(--tui-mantle);
+    border: 1px solid var(--tui-border);
+    @apply px-1.5 py-0.5 no-underline transition-colors;
+  }
+
+  .tui-tag:hover {
+    background-color: var(--tui-cyan);
+    color: var(--tui-bg);
   }
 
   /* Buttons */
   .tui-btn {
-    @apply inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold uppercase tracking-wider border border-[#7dcfff] text-[#7dcfff] bg-[#16161e] hover:bg-[#7dcfff] hover:text-[#1a1b26] transition-colors cursor-pointer no-underline;
+    border: 1px solid var(--tui-cyan);
+    color: var(--tui-cyan);
+    background-color: var(--tui-mantle);
+    @apply inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer no-underline;
+  }
+
+  .tui-btn:hover {
+    background-color: var(--tui-cyan);
+    color: var(--tui-bg);
   }
 
   .tui-btn-primary {
-    @apply inline-flex items-center gap-1.5 px-4 py-1.5 text-xs font-bold uppercase tracking-wider border border-[#9ece6a] text-[#1a1b26] bg-[#9ece6a] hover:bg-[#73daca] hover:border-[#73daca] transition-colors cursor-pointer no-underline;
+    border: 1px solid var(--tui-green);
+    color: var(--tui-bg);
+    background-color: var(--tui-green);
+    @apply inline-flex items-center gap-1.5 px-4 py-1.5 text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer no-underline;
+  }
+
+  .tui-btn-primary:hover {
+    background-color: var(--tui-cyan);
+    border-color: var(--tui-cyan);
   }
 
   .tui-btn-warning {
-    @apply inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold uppercase tracking-wider border border-[#e0af68] text-[#e0af68] bg-[#16161e] hover:bg-[#e0af68] hover:text-[#1a1b26] transition-colors cursor-pointer no-underline;
+    border: 1px solid var(--tui-amber);
+    color: var(--tui-amber);
+    background-color: var(--tui-mantle);
+    @apply inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer no-underline;
+  }
+
+  .tui-btn-warning:hover {
+    background-color: var(--tui-amber);
+    color: var(--tui-bg);
   }
 
   .tui-btn-danger {
-    @apply inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold uppercase tracking-wider border border-[#f7768e] text-[#f7768e] bg-[#16161e] hover:bg-[#f7768e] hover:text-[#1a1b26] transition-colors cursor-pointer no-underline;
+    border: 1px solid var(--tui-red);
+    color: var(--tui-red);
+    background-color: var(--tui-mantle);
+    @apply inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold uppercase tracking-wider transition-colors cursor-pointer no-underline;
+  }
+
+  .tui-btn-danger:hover {
+    background-color: var(--tui-red);
+    color: var(--tui-bg);
   }
 
   /* Status Bar Footer */
   .footer {
-    @apply w-full bg-[#16161e] border-t border-[#414868] text-xs text-[#a9b1d6] flex justify-between items-center px-4 py-1 mt-auto select-none;
+    background-color: var(--tui-mantle);
+    border-top: 1px solid var(--tui-border);
+    color: var(--tui-subtext);
+    @apply w-full text-xs flex justify-between items-center px-4 py-1 mt-auto select-none;
   }
 
-  /* Trix Rich Text Editor Dark TUI Overrides */
+  /* Trix Rich Text Editor TUI Overrides */
   trix-toolbar .trix-button-group {
-    @apply border-[#414868] rounded-none mb-2 !important;
+    border-color: var(--tui-border) !important;
+    @apply rounded-none mb-2 !important;
   }
 
   trix-toolbar .trix-button {
-    @apply bg-[#24283b] border-[#414868] text-[#c0caf5] hover:bg-[#414868] !important;
+    background-color: var(--tui-surface-hover) !important;
+    border-color: var(--tui-border) !important;
+    color: var(--tui-text) !important;
+  }
+
+  html[data-theme="dark"] trix-toolbar .trix-button {
     filter: invert(0.85) hue-rotate(180deg);
   }
 
   trix-editor {
-    @apply bg-[#16161e] text-[#c0caf5] border border-[#414868] rounded-none min-h-[16rem] p-3 font-mono text-sm focus:border-[#7dcfff] focus:outline-none !important;
+    background-color: var(--tui-mantle) !important;
+    color: var(--tui-text) !important;
+    border: 1px solid var(--tui-border) !important;
+    @apply rounded-none min-h-[16rem] p-3 font-mono text-sm focus:outline-none !important;
   }
+}
+
+/* Adapt arbitrary TokyoNight utility classes when in Light Theme */
+html[data-theme="light"] .bg-\[\#16161e\] {
+  background-color: var(--tui-mantle) !important;
+}
+html[data-theme="light"] .bg-\[\#1f2335\] {
+  background-color: var(--tui-surface) !important;
+}
+html[data-theme="light"] .border-\[\#414868\] {
+  border-color: var(--tui-border) !important;
+}
+html[data-theme="light"] .text-\[\#c0caf5\] {
+  color: var(--tui-text) !important;
+}
+html[data-theme="light"] .text-\[\#a9b1d6\] {
+  color: var(--tui-subtext) !important;
+}
+html[data-theme="light"] .text-\[\#565f89\] {
+  color: var(--tui-muted) !important;
+}
+html[data-theme="light"] .text-\[\#7dcfff\] {
+  color: var(--tui-cyan) !important;
+}
+html[data-theme="light"] .text-\[\#7aa2f7\] {
+  color: var(--tui-blue) !important;
+}
+html[data-theme="light"] .text-\[\#bb9af7\] {
+  color: var(--tui-purple) !important;
+}
+html[data-theme="light"] .text-\[\#9ece6a\] {
+  color: var(--tui-green) !important;
+}
+html[data-theme="light"] .text-\[\#e0af68\] {
+  color: var(--tui-amber) !important;
+}
+html[data-theme="light"] .text-\[\#f7768e\] {
+  color: var(--tui-red) !important;
+}
+html[data-theme="light"] .prose-invert {
+  --tw-prose-body: var(--tui-text);
+  --tw-prose-headings: var(--tui-cyan);
+  --tw-prose-links: var(--tui-blue);
+  --tw-prose-bold: var(--tui-amber);
+  --tw-prose-code: var(--tui-green);
+  --tw-prose-quotes: var(--tui-subtext);
 }
