@@ -1,0 +1,7 @@
+[env]
+PGDATA = "{{config_root}}/.postgres"
+PGHOST = "/tmp"
+
+[tools]
+postgres = "15.0"
+ruby = "3.3.6"
