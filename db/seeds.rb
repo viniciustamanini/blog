@@ -8,8 +8,9 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-user = User.where(email: "vinitamanini@hotmail.com").first_or_initialize
-user.update!(
-    password: "password",
-    password_confirmation: "password"
-)
+if Rails.env.development?
+  User.find_or_create_by!(email: "test@test.com") do |user|
+    user.password = "password"
+    user.password_confirmation = "password"
+  end
+end
