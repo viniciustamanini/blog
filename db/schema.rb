@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2026_10_28_165300) do
+ActiveRecord::Schema[7.1].define(version: 2026_10_28_170200) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -69,8 +69,10 @@ ActiveRecord::Schema[7.1].define(version: 2026_10_28_165300) do
     t.text "body", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
     t.index ["parent_id"], name: "index_comments_on_parent_id"
     t.index ["post_id"], name: "index_comments_on_post_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "educations", force: :cascade do |t|
@@ -100,6 +102,8 @@ ActiveRecord::Schema[7.1].define(version: 2026_10_28_165300) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "published_at"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
   create_table "professional_experiences", force: :cascade do |t|
@@ -171,7 +175,9 @@ ActiveRecord::Schema[7.1].define(version: 2026_10_28_165300) do
   add_foreign_key "certificates", "persons"
   add_foreign_key "comments", "comments", column: "parent_id"
   add_foreign_key "comments", "posts"
+  add_foreign_key "comments", "users"
   add_foreign_key "educations", "persons"
+  add_foreign_key "posts", "users"
   add_foreign_key "professional_experiences", "persons"
   add_foreign_key "skills", "persons"
   add_foreign_key "taggings", "tags"

@@ -4,11 +4,12 @@
 
   <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
     <div>
-      <%= form.label :author_name, "--user (nickname)" %>
+      <%= form.label :author_name, user_signed_in? ? "--user (logged in)" : "--user (nickname)" %>
       <%= form.text_field :author_name,
-                      required: true,
+                      value: comment.author_name.presence || (current_user&.display_name if user_signed_in?),
+                      required: !user_signed_in?,
                       maxlength: 60,
-                      placeholder: "guest",
+                      placeholder: user_signed_in? ? current_user.display_name : "guest",
                       class: "w-full" %>
     </div>
   </div>

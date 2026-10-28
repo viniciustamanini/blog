@@ -5,7 +5,16 @@
         <span class="text-[#7dcfff]">└──▶</span>
       <% end %>
       <span class="text-[#565f89]">[<%= comment.created_at.strftime("%Y-%m-%d %H:%M") %>]</span>
-      <strong class="text-[#9ece6a]">&lt;<%= comment.author_name %>&gt;</strong>
+      <strong class="<%= comment.op? ? 'text-[#7aa2f7]' : 'text-[#9ece6a]' %>">&lt;<%= comment.author_name %>&gt;</strong>
+      <% if comment.op? %>
+        <span class="px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-[#7aa2f7] text-[#16161e]" title="Original Poster (Post Author)">
+          OP
+        </span>
+      <% elsif comment.admin? %>
+        <span class="px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-[#bb9af7] text-[#16161e]">
+          ADMIN
+        </span>
+      <% end %>
     </div>
 
     <div class="flex items-center gap-2">

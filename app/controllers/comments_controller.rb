@@ -10,6 +10,7 @@ class CommentsController < ApplicationController
 
   def create
     @comment = @post.comments.build(comment_params)
+    @comment.user = current_user if user_signed_in?
 
     respond_to do |format|
       if @comment.save
@@ -46,6 +47,8 @@ class CommentsController < ApplicationController
   end
 
   def check_rate_limit
+    return if user_signed_in?
+
     key = "comment_rate:#{request.remote_ip}"
     count = RATE_LIMIT_STORE.read(key).to_i
 
