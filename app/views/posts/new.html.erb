@@ -1,2 +1,9 @@
-<h1>New blog post</h1>
-<%= render partial: "form", locals: {post: @post} %>
+<div class="tui-prompt">
+  <span class="text-[#7aa2f7]">vinicius@blog</span>:<span class="text-[#bb9af7]">~/posts</span>$
+  <span class="text-[#c0caf5]">nvim new_post.md</span>
+</div>
+
+<div class="tui-box mt-6">
+  <div class="tui-box-title">new post buffer</div>
+  <%= render partial: "form", locals: { post: @post } %>
+</div>

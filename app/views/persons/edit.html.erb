@@ -1,3 +1,18 @@
-<h1>Edit person</h1>
-<%= render partial: "form", locals: {person: @person} %>
-<%= button_to "Delete", @post, method: :delete, data: {turbo_confirm: "Confirm?"} %>
+<div class="tui-prompt">
+  <span class="text-[#7aa2f7]">vinicius@blog</span>:<span class="text-[#bb9af7]">~/about_me</span>$
+  <span class="text-[#c0caf5]">nvim profile.yml</span>
+</div>
+
+<div class="tui-box mt-6">
+  <div class="flex justify-between items-center mb-4">
+    <div class="tui-box-title !mb-0">edit profile</div>
+    <%= button_to "[rm -f] Delete",
+    @person,
+    method: :delete,
+    data: {
+      turbo_confirm: "Confirm?",
+    },
+    class: "tui-btn-danger" %>
+  </div>
+  <%= render partial: "form", locals: { person: @person } %>
+</div>

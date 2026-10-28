@@ -1,48 +1,55 @@
+<div class="tui-prompt">
+  <span class="text-[#7aa2f7]">vinicius@blog</span>:<span class="text-[#bb9af7]">~/about_me</span>$
+  <span class="text-[#c0caf5]">whoami --verbose</span>
+  <span class="inline-block w-2 h-4 bg-[#7dcfff] animate-pulse"></span>
+</div>
+
 <% if @persons.any? %>
   <% @persons.each do |person| %>
-    <div
-      class="
-        cv-card bg-white shadow-md rounded-lg border border-gray-200 p-6 mb-6
-      "
-    >
-      <div
-        class="
-          cv-header flex justify-between items-center border-b border-gray-300 pb-4 mb-4
-        "
-      >
-        <div class="cv-header-left">
-          <h2 class="text-2xl font-bold text-gray-800"><%= person.name.presence || "Name not provided" %></h2>
-          <h4 class="text-lg text-gray-600"><%= person.role.presence || "Role not specified" %></h4>
+    <div class="tui-box mt-6">
+      <div class="tui-box-title">profile // <%= person.name.presence || "user" %></div>
+
+      <div class="flex flex-col md:flex-row justify-between md:items-center border-b border-[#414868] pb-4 mb-6 gap-4">
+        <div>
+          <h2 class="text-2xl font-bold text-[#7dcfff]">
+            <%= person.name.presence || "Name not provided" %>
+          </h2>
+          <h4 class="text-sm text-[#bb9af7] mt-1">
+            &gt; <%= person.role.presence || "Role not specified" %>
+          </h4>
         </div>
-        <div class="cv-header-right text-right">
-          <p class="text-gray-600"><strong>Email:</strong>
-            <%= person.email.presence || "Not available" %></p>
-          <p class="text-gray-600"><strong>Phone:</strong>
-            <%= person.phone.presence || "Not available" %></p>
+        <div class="text-xs space-y-1 bg-[#16161e] border border-[#414868] p-3">
+          <p><span class="text-[#7aa2f7]">email:</span> <span class="text-[#c0caf5]"><%= person.email.presence || "N/A" %></span></p>
+          <p><span class="text-[#7aa2f7]">phone:</span> <span class="text-[#c0caf5]"><%= person.phone.presence || "N/A" %></span></p>
         </div>
       </div>
-      <div class="cv-summary mb-6">
-        <h3 class="text-xl font-semibold text-blue-600 mb-2">Summary</h3>
-        <p class="text-gray-700"><%= truncate(person.summary.presence || "No summary available.", length: 250) %></p>
+
+      <div class="mb-6">
+        <h3 class="text-xs font-bold uppercase tracking-widest text-[#9ece6a] mb-2">
+          ──[ Summary ]────────────────────
+        </h3>
+        <p class="text-sm text-[#a9b1d6] leading-relaxed pl-2 border-l-2 border-[#414868]">
+          <%= person.summary.presence || "No summary available." %>
+        </p>
       </div>
 
       <% if person.educations&.any? %>
-        <div class="cv-section mb-6">
-          <h3 class="text-xl font-semibold text-blue-600 mb-2">Education</h3>
-          <ul class="list-disc ml-6 text-gray-700">
+        <div class="mb-6">
+          <h3 class="text-xs font-bold uppercase tracking-widest text-[#9ece6a] mb-3">
+            ──[ Education ]──────────────────
+          </h3>
+          <ul class="space-y-3 text-sm">
             <% person.educations.each do |education| %>
-              <li>
-                <strong><%= education.institution_name.presence || "Institution not specified" %></strong>
-                -
-                <%= education.degree.presence || "Degree not mentioned" %>
-                in
-                <%= education.field_of_study.presence || "Field not specified" %>
-                <br>
-                <em class="text-gray-500">
-                  <%= education.started_on.presence || "Start date not provided" %>
-                  -
-                  <%= education.ended_on.presence || "Currently" %>
-                </em>
+              <li class="bg-[#16161e] border border-[#414868] p-3">
+                <div class="flex flex-wrap justify-between gap-2">
+                  <strong class="text-[#7dcfff]"><%= education.institution_name.presence || "Institution not specified" %></strong>
+                  <span class="text-xs text-[#565f89]">
+                    [<%= education.started_on.presence || "?" %> .. <%= education.ended_on.presence || "Present" %>]
+                  </span>
+                </div>
+                <div class="text-[#c0caf5] text-xs mt-1">
+                  <%= education.degree.presence || "Degree" %> — <%= education.field_of_study.presence || "Field" %>
+                </div>
               </li>
             <% end %>
           </ul>
@@ -50,15 +57,19 @@
       <% end %>
 
       <% if person.certificates&.any? %>
-        <div class="cv-section mb-6">
-          <h3 class="text-xl font-semibold text-blue-600 mb-2">Certificates</h3>
-          <ul class="list-disc ml-6 text-gray-700">
+        <div class="mb-6">
+          <h3 class="text-xs font-bold uppercase tracking-widest text-[#9ece6a] mb-3">
+            ──[ Certificates ]───────────────
+          </h3>
+          <ul class="space-y-2 text-sm">
             <% person.certificates.each do |certificate| %>
-              <li>
-                <strong><%= certificate.name.presence || "Certificate not named" %></strong>,
-                <%= certificate.issuing_organization.presence ||
-                  "Issuing organization not mentioned" %>
-                (<%= certificate.issued_on.presence || "Issue date not available" %>)
+              <li class="bg-[#16161e] border border-[#414868] px-3 py-2 flex flex-wrap justify-between items-center gap-2">
+                <div>
+                  <span class="text-[#e0af68]">*</span>
+                  <strong class="text-[#c0caf5]"><%= certificate.name.presence || "Certificate" %></strong>
+                  <span class="text-[#565f89]">@ <%= certificate.issuing_organization.presence || "Org" %></span>
+                </div>
+                <span class="text-xs text-[#565f89]">[<%= certificate.issued_on.presence || "N/A" %>]</span>
               </li>
             <% end %>
           </ul>
@@ -66,21 +77,25 @@
       <% end %>
 
       <% if person.professional_experiences&.any? %>
-        <div class="cv-section mb-6">
-          <h3 class="text-xl font-semibold text-blue-600 mb-2">Professional Experience</h3>
-          <ul class="list-disc ml-6 text-gray-700">
+        <div class="mb-6">
+          <h3 class="text-xs font-bold uppercase tracking-widest text-[#9ece6a] mb-3">
+            ──[ Professional Experience ]────
+          </h3>
+          <ul class="space-y-3 text-sm">
             <% person.professional_experiences.each do |experience| %>
-              <li>
-                <strong><%= experience.company_name.presence || "Company not specified" %></strong>
-                -
-                <%= experience.role.presence || "Role not mentioned" %>
-                <br>
-                <p><%= experience.description.presence || "No description available." %></p>
-                <em class="text-gray-500">
-                  <%= experience.started_on.presence || "Start date not provided" %>
-                  -
-                  <%= experience.ended_on.presence || "End date not provided" %>
-                </em>
+              <li class="bg-[#16161e] border border-[#414868] p-3">
+                <div class="flex flex-wrap justify-between items-center gap-2 mb-1">
+                  <div>
+                    <strong class="text-[#7dcfff]"><%= experience.company_name.presence || "Company" %></strong>
+                    <span class="text-[#bb9af7]">// <%= experience.role.presence || "Role" %></span>
+                  </div>
+                  <span class="text-xs text-[#565f89]">
+                    [<%= experience.started_on.presence || "?" %> .. <%= experience.ended_on.presence || "Present" %>]
+                  </span>
+                </div>
+                <p class="text-xs text-[#a9b1d6] mt-2 leading-relaxed">
+                  <%= experience.description.presence || "No description available." %>
+                </p>
               </li>
             <% end %>
           </ul>
@@ -88,13 +103,16 @@
       <% end %>
 
       <% if person.skills&.any? %>
-        <div class="cv-section">
-          <h3 class="text-xl font-semibold text-blue-600 mb-2">Skills</h3>
-          <ul class="flex flex-wrap gap-2">
+        <div class="mb-4">
+          <h3 class="text-xs font-bold uppercase tracking-widest text-[#9ece6a] mb-3">
+            ──[ Skills ]─────────────────────
+          </h3>
+          <ul class="flex flex-wrap gap-2 text-xs">
             <% person.skills.each do |skill| %>
-              <li class="bg-blue-100 text-blue-700 py-1 px-3 rounded">
-                <%= skill.name.presence || "Skill not named" %>
-                (<%= skill.proficiency_level.presence || "Proficiency not specified" %>)
+              <% level = (skill.proficiency_level.to_i.clamp(0, 5)) %>
+              <li class="bg-[#16161e] border border-[#414868] px-3 py-1.5 flex items-center gap-2">
+                <span class="text-[#c0caf5] font-semibold"><%= skill.name.presence || "Skill" %></span>
+                <span class="text-[#9ece6a]">[<%= "#" * level %><%= "." * (5 - level) %>]</span>
               </li>
             <% end %>
           </ul>
@@ -102,32 +120,26 @@
       <% end %>
 
       <% if user_signed_in? %>
-        <div class="cv-actions mt-4 flex gap-4">
-          <%= link_to "Edit",
-          edit_person_path(person),
-          class:
-            "bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-2 px-4 rounded" %>
-          <%= button_to "Delete",
+        <div class="mt-6 pt-4 border-t border-dashed border-[#414868] flex gap-3">
+          <%= link_to "[e] Edit", edit_person_path(person), class: "tui-btn-warning" %>
+          <%= button_to "[rm] Delete",
           person,
           method: :delete,
           data: {
             turbo_confirm: "Are you sure?",
-          },
-          class: "bg-red-500 hover:bg-red-600 text-white font-semibold py-2 px-4 rounded",
-          data: {
             turbo_frame: "person-list",
-          } %>
+          },
+          class: "tui-btn-danger" %>
         </div>
       <% end %>
     </div>
   <% end %>
 <% else %>
-  <% if user_signed_in? %>
-    <%= link_to "Create",
-    new_person_path,
-    class:
-      "bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded" %>
-  <% else %>
-    <p class="text-gray-600">No persons available.</p>
-  <% end %>
+  <div class="tui-box mt-6">
+    <div class="tui-box-title">status</div>
+    <p class="text-sm text-[#565f89] mb-4">No profile configured yet.</p>
+    <% if user_signed_in? %>
+      <%= link_to "[+create_profile]", new_person_path, class: "tui-btn-primary" %>
+    <% end %>
+  </div>
 <% end %>

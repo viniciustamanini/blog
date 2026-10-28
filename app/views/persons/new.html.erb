@@ -1,3 +1,10 @@
-<h1>New person</h1>
-<%= render partial: "form", locals: {person: @person} %>
+<div class="tui-prompt">
+  <span class="text-[#7aa2f7]">vinicius@blog</span>:<span class="text-[#bb9af7]">~/about_me</span>$
+  <span class="text-[#c0caf5]">nvim profile.yml</span>
+</div>
+
+<div class="tui-box mt-6">
+  <div class="tui-box-title">new profile</div>
+  <%= render partial: "form", locals: { person: @person } %>
+</div>
 

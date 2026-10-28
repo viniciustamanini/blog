@@ -3,84 +3,136 @@
 @tailwind utilities;
 @import "actiontext.css";
 
-@layer components {
-  .body {
-    @apply bg-[#D1D1D1] font-system;
+@layer base {
+  ::selection {
+    background-color: #7dcfff;
+    color: #1a1b26;
   }
 
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  input[type="date"],
+  select,
+  textarea {
+    @apply bg-[#16161e] text-[#c0caf5] border border-[#414868] rounded-none px-3 py-1.5 font-mono text-sm focus:border-[#7dcfff] focus:ring-1 focus:ring-[#7dcfff] focus:outline-none;
+  }
+
+  input[type="checkbox"] {
+    @apply bg-[#16161e] border-[#414868] text-[#7dcfff] rounded-none focus:ring-[#7dcfff] focus:ring-offset-[#1a1b26];
+  }
+
+  label {
+    @apply text-[#7aa2f7] text-xs uppercase tracking-wider font-semibold block mb-1;
+  }
+}
+
+@layer components {
+  .body {
+    @apply bg-[#1a1b26] text-[#c0caf5] font-mono min-h-screen flex flex-col antialiased;
+  }
+
+  /* Tmux / Neovim Top Bar */
   .navbar {
-    @apply flex justify-between items-center max-w-full prose bg-[#161623] px-60 py-2 shadow-md;
+    @apply flex flex-wrap justify-between items-center w-full bg-[#16161e] border-b border-[#414868] px-4 md:px-8 py-2 text-sm;
   }
 
   .navbar-link-to {
-    @apply text-white hover:text-gray-300 no-underline;
+    @apply text-[#a9b1d6] hover:text-[#1a1b26] hover:bg-[#7dcfff] px-2.5 py-1 no-underline transition-colors duration-100 border border-transparent hover:border-[#7dcfff];
   }
 
-  .dropdown-container {
-    @apply relative;
+  .navbar-link-active {
+    @apply text-[#1a1b26] bg-[#7aa2f7] font-bold px-2.5 py-1 no-underline;
   }
 
-  .dropdown-button {
-    @apply flex items-center justify-center gap-x-1.5 rounded-md bg-[#B957CE] px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-[#5994CE] cursor-pointer border-none;
+  /* TUI Box / Window */
+  .tui-box {
+    @apply relative bg-[#1f2335] border border-[#414868] p-5 mb-6;
   }
 
-  .dropdown-menu {
-    @apply absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none;
+  .tui-box-title {
+    @apply inline-block bg-[#1f2335] text-[#7dcfff] font-bold text-xs uppercase tracking-wider px-2 -mt-8 mb-4 border border-[#414868];
   }
 
-  .dropdown-item {
-    @apply text-gray-700 block px-4 py-1 text-sm hover:bg-gray-100 no-underline text-right;
+  .tui-prompt {
+    @apply text-sm text-[#9ece6a] mb-4 flex items-center gap-2;
   }
 
-  .border-highlight {
-    @apply border-[#3A4E93];
-  }
-
-  .icon-background {
-    @apply bg-[#6D68A8];
+  /* Post List & Cards */
+  .month-header {
+    @apply text-[#bb9af7] font-bold text-sm uppercase tracking-widest mt-8 mb-3 flex items-center gap-2 before:content-['┌──['] after:content-[']──────'] before:text-[#414868] after:text-[#414868];
   }
 
   .post-card {
-    @apply bg-[#161623] prose px-1 py-1 rounded-md max-w-65 mx-auto mt-2 mb-2 shadow-lg transition-transform duration-200 ease-in-out;
-  }
-
-  .post-card:hover {
-    @apply shadow-2xl -translate-y-1 -translate-x-1;
+    @apply bg-[#1f2335] border border-[#414868] p-4 mb-4 transition-colors duration-100 hover:border-[#7dcfff] hover:bg-[#24283b];
   }
 
   .post-title {
-    @apply p-2 text-2xl max-w-64 font-bold text-white;
+    @apply text-lg font-bold text-[#c0caf5] group-hover:text-[#7dcfff] flex items-center gap-2;
   }
 
   .post-status {
-    @apply p-2 text-white text-right;
+    @apply text-xs px-2 py-0.5 font-semibold uppercase tracking-wider border;
   }
 
   .draft {
-    @apply bg-[#6D68A8];
+    @apply bg-[#bb9af7]/10 text-[#bb9af7] border-[#bb9af7];
   }
 
   .scheduled {
-    @apply bg-[#5994CE];
+    @apply bg-[#e0af68]/10 text-[#e0af68] border-[#e0af68];
   }
 
   .post-date {
-    @apply py-2 text-gray-400;
+    @apply text-xs text-[#565f89] border border-[#414868] bg-[#16161e] px-2 py-0.5;
   }
 
   .content {
-    @apply px-2 py-1 text-gray-200;
-  }
-
-  .month-header {
-    @aplly bg-[D68A8];
+    @apply py-2 text-sm text-[#a9b1d6] leading-relaxed;
   }
 
   .tags {
-    @apply bg-[#D1D1D1];
+    @apply mt-3 pt-2 border-t border-dashed border-[#414868] text-xs text-[#565f89] flex flex-wrap items-center gap-2;
   }
 
+  .tui-tag {
+    @apply text-[#7dcfff] hover:bg-[#7dcfff] hover:text-[#1a1b26] px-1.5 py-0.5 bg-[#16161e] border border-[#414868] no-underline transition-colors;
+  }
+
+  /* Buttons */
+  .tui-btn {
+    @apply inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold uppercase tracking-wider border border-[#7dcfff] text-[#7dcfff] bg-[#16161e] hover:bg-[#7dcfff] hover:text-[#1a1b26] transition-colors cursor-pointer no-underline;
+  }
+
+  .tui-btn-primary {
+    @apply inline-flex items-center gap-1.5 px-4 py-1.5 text-xs font-bold uppercase tracking-wider border border-[#9ece6a] text-[#1a1b26] bg-[#9ece6a] hover:bg-[#73daca] hover:border-[#73daca] transition-colors cursor-pointer no-underline;
+  }
+
+  .tui-btn-warning {
+    @apply inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold uppercase tracking-wider border border-[#e0af68] text-[#e0af68] bg-[#16161e] hover:bg-[#e0af68] hover:text-[#1a1b26] transition-colors cursor-pointer no-underline;
+  }
+
+  .tui-btn-danger {
+    @apply inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold uppercase tracking-wider border border-[#f7768e] text-[#f7768e] bg-[#16161e] hover:bg-[#f7768e] hover:text-[#1a1b26] transition-colors cursor-pointer no-underline;
+  }
+
+  /* Status Bar Footer */
   .footer {
-    @apply bg-[#161623];
+    @apply w-full bg-[#16161e] border-t border-[#414868] text-xs text-[#a9b1d6] flex justify-between items-center px-4 py-1 mt-auto select-none;
+  }
+
+  /* Trix Rich Text Editor Dark TUI Overrides */
+  trix-toolbar .trix-button-group {
+    @apply border-[#414868] rounded-none mb-2 !important;
+  }
+
+  trix-toolbar .trix-button {
+    @apply bg-[#24283b] border-[#414868] text-[#c0caf5] hover:bg-[#414868] !important;
+    filter: invert(0.85) hue-rotate(180deg);
+  }
+
+  trix-editor {
+    @apply bg-[#16161e] text-[#c0caf5] border border-[#414868] rounded-none min-h-[16rem] p-3 font-mono text-sm focus:border-[#7dcfff] focus:outline-none !important;
   }
 }
