@@ -37,34 +37,90 @@
 
   <div class="border border-[#414868] bg-[#16161e] p-4 space-y-3">
     <h2 class="text-xs font-bold uppercase tracking-widest text-[#9ece6a]">──[ Educations ]</h2>
-    <%= form.fields_for :educations do |education_form| %>
-      <%= render "education_fields", f: education_form %>
-    <% end %>
-    <%= link_to "[+ Add Education]", "#", class: "tui-btn", data: { target: "add-education" } %>
+    <div id="educations-list" class="space-y-3">
+      <%= form.fields_for :educations do |education_form| %>
+        <%= render "education_fields", f: education_form %>
+      <% end %>
+    </div>
+    <template id="education-template">
+      <%= form.fields_for :educations, Education.new, child_index: "NEW_RECORD" do |education_form| %>
+        <%= render "education_fields", f: education_form %>
+      <% end %>
+    </template>
+    <button
+      type="button"
+      class="tui-btn"
+      data-add-nested="educations-list"
+      data-template-id="education-template"
+    >
+      [+ Add Education]
+    </button>
   </div>
 
   <div class="border border-[#414868] bg-[#16161e] p-4 space-y-3">
     <h2 class="text-xs font-bold uppercase tracking-widest text-[#9ece6a]">──[ Certificates ]</h2>
-    <%= form.fields_for :certificates do |certificate_form| %>
-      <%= render "certificate_fields", f: certificate_form %>
-    <% end %>
-    <%= link_to "[+ Add Certificate]", "#", class: "tui-btn", data: { target: "add-certificate" } %>
+    <div id="certificates-list" class="space-y-3">
+      <%= form.fields_for :certificates do |certificate_form| %>
+        <%= render "certificate_fields", f: certificate_form %>
+      <% end %>
+    </div>
+    <template id="certificate-template">
+      <%= form.fields_for :certificates, Certificate.new, child_index: "NEW_RECORD" do |certificate_form| %>
+        <%= render "certificate_fields", f: certificate_form %>
+      <% end %>
+    </template>
+    <button
+      type="button"
+      class="tui-btn"
+      data-add-nested="certificates-list"
+      data-template-id="certificate-template"
+    >
+      [+ Add Certificate]
+    </button>
   </div>
 
   <div class="border border-[#414868] bg-[#16161e] p-4 space-y-3">
     <h2 class="text-xs font-bold uppercase tracking-widest text-[#9ece6a]">──[ Experiences ]</h2>
-    <%= form.fields_for :professional_experiences do |experience_form| %>
-      <%= render "professional_experience_fields", f: experience_form %>
-    <% end %>
-    <%= link_to "[+ Add Experience]", "#", class: "tui-btn", data: { target: "add-experience" } %>
+    <div id="experiences-list" class="space-y-3">
+      <%= form.fields_for :professional_experiences do |experience_form| %>
+        <%= render "professional_experience_fields", f: experience_form %>
+      <% end %>
+    </div>
+    <template id="experience-template">
+      <%= form.fields_for :professional_experiences, ProfessionalExperience.new, child_index: "NEW_RECORD" do |experience_form| %>
+        <%= render "professional_experience_fields", f: experience_form %>
+      <% end %>
+    </template>
+    <button
+      type="button"
+      class="tui-btn"
+      data-add-nested="experiences-list"
+      data-template-id="experience-template"
+    >
+      [+ Add Experience]
+    </button>
   </div>
 
   <div class="border border-[#414868] bg-[#16161e] p-4 space-y-3">
     <h2 class="text-xs font-bold uppercase tracking-widest text-[#9ece6a]">──[ Skills ]</h2>
-    <%= form.fields_for :skills do |skill_form| %>
-      <%= render "skill_fields", f: skill_form %>
-    <% end %>
-    <%= link_to "[+ Add Skill]", "#", class: "tui-btn", data: { target: "add-skill" } %>
+    <div id="skills-list" class="space-y-3">
+      <%= form.fields_for :skills do |skill_form| %>
+        <%= render "skill_fields", f: skill_form %>
+      <% end %>
+    </div>
+    <template id="skill-template">
+      <%= form.fields_for :skills, Skill.new, child_index: "NEW_RECORD" do |skill_form| %>
+        <%= render "skill_fields", f: skill_form %>
+      <% end %>
+    </template>
+    <button
+      type="button"
+      class="tui-btn"
+      data-add-nested="skills-list"
+      data-template-id="skill-template"
+    >
+      [+ Add Skill]
+    </button>
   </div>
 
   <div class="pt-2 flex items-center gap-3">

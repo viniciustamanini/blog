@@ -1,14 +1,26 @@
-<div class="certificate-fields">
+<div class="certificate-fields border border-[#414868] bg-[#1f2335] p-3 space-y-3" data-nested-item>
   <%= f.hidden_field :id %>
-  <%= f.label :issuing_organization %>
-  <%= f.text_field :issuing_organization %>
+  <%= f.hidden_field :_destroy %>
 
-  <%= f.label :name %>
-  <%= f.text_field :name %>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+    <div>
+      <%= f.label :name %>
+      <%= f.text_field :name, class: "w-full" %>
+    </div>
+    <div>
+      <%= f.label :issuing_organization %>
+      <%= f.text_field :issuing_organization, class: "w-full" %>
+    </div>
+    <div>
+      <%= f.label :issued_on %>
+      <%= f.date_field :issued_on, class: "w-full" %>
+    </div>
+  </div>
 
-  <%= f.label :issued_on %>
-  <%= f.date_field :issued_on %>
-
-  <%= f.check_box :_destroy %> <%= f.label :_destroy, 'Remove' %>
+  <div class="flex justify-end pt-1">
+    <button type="button" class="tui-btn-danger" data-remove-nested>
+      [x] Remove Certificate
+    </button>
+  </div>
 </div>
 

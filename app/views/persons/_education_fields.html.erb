@@ -1,20 +1,37 @@
-<div class="education-fields">
+<div class="education-fields border border-[#414868] bg-[#1f2335] p-3 space-y-3" data-nested-item>
   <%= f.hidden_field :id %>
-  <%= f.label :institution_name %>
-  <%= f.text_field :institution_name %>
+  <%= f.hidden_field :_destroy %>
 
-  <%= f.label :degree %>
-  <%= f.text_field :degree %>
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+    <div>
+      <%= f.label :institution_name %>
+      <%= f.text_field :institution_name, class: "w-full" %>
+    </div>
+    <div>
+      <%= f.label :degree %>
+      <%= f.text_field :degree, class: "w-full" %>
+    </div>
+    <div>
+      <%= f.label :field_of_study %>
+      <%= f.text_field :field_of_study, class: "w-full" %>
+    </div>
+  </div>
 
-  <%= f.label :field_of_study %>
-  <%= f.text_field :field_of_study %>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+    <div>
+      <%= f.label :started_on %>
+      <%= f.date_field :started_on, class: "w-full" %>
+    </div>
+    <div>
+      <%= f.label :ended_on %>
+      <%= f.date_field :ended_on, class: "w-full" %>
+    </div>
+  </div>
 
-  <%= f.label :started_on %>
-  <%= f.date_field :started_on %>
-
-  <%= f.label :ended_on %>
-  <%= f.date_field :ended_on %>
-
-  <%= f.check_box :_destroy %> <%= f.label :_destroy, 'Remove' %>
+  <div class="flex justify-end pt-1">
+    <button type="button" class="tui-btn-danger" data-remove-nested>
+      [x] Remove Education
+    </button>
+  </div>
 </div>
 

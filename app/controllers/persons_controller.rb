@@ -22,7 +22,7 @@ class PersonsController < ApplicationController
     @person = Person.new(person_params)
 
     if @person.save
-      redirect_to @person, notice: 'Successfully created'
+      redirect_to persons_path, notice: 'Successfully created'
     else
       render :new, status: :unprocessable_entity
     end
@@ -33,7 +33,7 @@ class PersonsController < ApplicationController
 
   def update
     if @person.update(person_params)
-      redirect_to @person, notice: 'Successfully updated'
+      redirect_to persons_path, notice: 'Successfully updated'
     else
       render :edit, status: :unprocessable_entity
     end
@@ -41,7 +41,7 @@ class PersonsController < ApplicationController
 
   def destroy
     @person.destroy
-    redirect_to root_path, notice: 'Successfully deleted'
+    redirect_to persons_path, notice: 'Successfully deleted'
   end
 
   private
