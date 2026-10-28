@@ -7,7 +7,9 @@ Rails.application.routes.draw do
   get 'tags/:tag', to: 'posts#index', as: :tag
 
   devise_for :users
-  resources :posts
+  resources :posts do
+    resources :comments, only: %i[create destroy]
+  end
   resources :persons, path: 'about_me'
 
   # Defines the root path route ("/")

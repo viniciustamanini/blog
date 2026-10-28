@@ -73,3 +73,4 @@ gem 'tailwindcss-rails', '~> 2.3'
 # gem 'rmagick'
 
 gem 'acts-as-taggable-on', '~> 12.0'
+gem 'invisible_captcha', '~> 2.1'

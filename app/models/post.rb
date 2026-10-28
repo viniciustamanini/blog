@@ -1,6 +1,7 @@
 class Post < ApplicationRecord
   acts_as_taggable_on :tags
   has_rich_text :content
+  has_many :comments, dependent: :destroy
 
   validates :title, presence: true
   validates :content, presence: true

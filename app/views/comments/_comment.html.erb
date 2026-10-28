@@ -1,0 +1,52 @@
+<div id="<%= dom_id(comment) %>" class="<%= comment.parent_id.present? ? 'ml-4 sm:ml-8 mt-2 border-l-2 border-[#414868] pl-3' : 'border border-[#414868] bg-[#16161e] p-3' %>">
+  <div class="flex flex-wrap justify-between items-center gap-2 text-xs mb-1.5">
+    <div class="flex items-center gap-2">
+      <% if comment.parent_id.present? %>
+        <span class="text-[#7dcfff]">└──▶</span>
+      <% end %>
+      <span class="text-[#565f89]">[<%= comment.created_at.strftime("%Y-%m-%d %H:%M") %>]</span>
+      <strong class="text-[#9ece6a]">&lt;<%= comment.author_name %>&gt;</strong>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <% if comment.parent_id.nil? %>
+        <button
+          type="button"
+          class="text-xs text-[#7dcfff] hover:underline cursor-pointer"
+          onclick="document.getElementById('reply-form-<%= comment.id %>').classList.toggle('hidden')"
+        >
+          [reply]
+        </button>
+      <% end %>
+
+      <% if user_signed_in? %>
+        <%= button_to "[rm]",
+        post_comment_path(comment.post, comment),
+        method: :delete,
+        data: {
+          turbo_confirm: "Delete this comment?",
+        },
+        class: "text-xs text-[#f7768e] hover:underline cursor-pointer bg-transparent border-0 p-0" %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="text-sm text-[#c0caf5] whitespace-pre-line break-words leading-relaxed">
+    <%= comment.body %>
+  </div>
+
+  <% if comment.parent_id.nil? %>
+    <div id="replies-for-<%= comment.id %>" class="space-y-2 mt-2">
+      <% comment.replies.each do |reply| %>
+        <%= render "comments/comment", comment: reply %>
+      <% end %>
+    </div>
+
+    <div id="reply-form-<%= comment.id %>" class="hidden mt-3 pt-3 border-t border-dashed border-[#414868]">
+      <%= render "comments/form",
+      post: comment.post,
+      comment: Comment.new(parent_id: comment.id),
+      parent_id: comment.id %>
+    </div>
+  <% end %>
+</div>

@@ -39,3 +39,31 @@
     <% end %>
   </footer>
 </article>
+
+<section class="tui-box mt-8">
+  <div class="tui-box-title">
+    stdout: comments (<span id="comments-count"><%= @post.comments.count %></span>)
+  </div>
+
+  <div id="comments-list" class="space-y-3 mb-6">
+    <% top_comments = @post.comments.top_level.includes(:replies) %>
+    <% if top_comments.any? %>
+      <% top_comments.each do |comment| %>
+        <%= render "comments/comment", comment: comment %>
+      <% end %>
+    <% else %>
+      <p id="no-comments-placeholder" class="text-xs text-[#565f89]">
+        -- no comments yet. be the first to write to stdout --
+      </p>
+    <% end %>
+  </div>
+
+  <div class="border-t border-[#414868] pt-4">
+    <h3 class="text-xs font-bold uppercase tracking-widest text-[#9ece6a] mb-3">
+      ──[ Write Comment ]─────────────
+    </h3>
+    <div id="new-comment-form">
+      <%= render "comments/form", post: @post, comment: Comment.new, parent_id: nil %>
+    </div>
+  </div>
+</section>

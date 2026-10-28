@@ -1,0 +1,39 @@
+<%= form_with model: [post, comment], class: "space-y-3" do |form| %>
+  <%= form.invisible_captcha :subtitle %>
+  <%= form.hidden_field :parent_id %>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+    <div>
+      <%= form.label :author_name, "--user (nickname)" %>
+      <%= form.text_field :author_name,
+                      required: true,
+                      maxlength: 60,
+                      placeholder: "guest",
+                      class: "w-full" %>
+    </div>
+  </div>
+
+  <div>
+    <%= form.label :body, parent_id.present? ? "--reply" : "--message" %>
+    <%= form.text_area :body,
+                   rows: parent_id.present? ? 2 : 3,
+                   required: true,
+                   maxlength: 2000,
+                   placeholder: "Type your message...",
+                   class: "w-full" %>
+  </div>
+
+  <div class="flex items-center gap-2">
+    <%= form.button parent_id.present? ? "[send reply]" : "[send comment]",
+                class: "tui-btn-primary" %>
+    <% if parent_id.present? %>
+      <button
+        type="button"
+        class="tui-btn"
+        onclick="document.getElementById('reply-form-<%= parent_id %>').classList.add('hidden')"
+      >
+        [cancel]
+      </button>
+    <% end %>
+  </div>
+<% end %>
