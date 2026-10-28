@@ -1,5 +1,25 @@
+<div class="tui-prompt">
+  <span class="text-[#7aa2f7]">vinicius@blog</span>:<span class="text-[#bb9af7]">~/posts</span>$
+  <span class="text-[#c0caf5]">ls -la <%= params[:tag].present? ? "--tag=#{params[:tag]}" : "" %></span>
+  <span class="inline-block w-2 h-4 bg-[#7dcfff] animate-pulse"></span>
+</div>
+
+<% if params[:tag].present? %>
+  <div class="mb-4 flex items-center justify-between border border-[#414868] bg-[#16161e] px-3 py-2 text-xs">
+    <span>Filtering by tag: <strong class="text-[#7dcfff]">#<%= params[:tag] %></strong></span>
+    <%= link_to "[x] clear filter", root_path, class: "text-[#f7768e] hover:underline no-underline" %>
+  </div>
+<% end %>
+
 <% grouped_posts =
   @posts.group_by { |post| post.published_at&.beginning_of_month || :draft } %>
+
+<% if grouped_posts.empty? %>
+  <div class="tui-box">
+    <div class="tui-box-title">empty</div>
+    <p class="text-sm text-[#565f89]">total 0 — no posts found in current directory.</p>
+  </div>
+<% end %>
 
 <% grouped_posts.each do |month, posts_grouped| %>
   <% if month == :draft %>
@@ -9,35 +29,40 @@
   <% end %>
 
   <% posts_grouped.each do |post| %>
-    <div class="post-card">
-      <%= link_to post, :action => 'go' do %>
-        <div class="columns-2">
+    <div class="post-card group">
+      <%= link_to post, class: "no-underline block" do %>
+        <div class="flex flex-wrap justify-between items-start gap-2 border-b border-[#414868]/60 pb-2 mb-2">
           <div class="post-title">
-            <%= post.title %>
+            <span class="text-[#7dcfff] opacity-70 group-hover:opacity-100">&gt;</span>
+            <span><%= post.title %></span>
           </div>
 
-          <% if post.draft? %>
-            <div class="post-status draft">Draft</div>
-          <% elsif post.scheduled? %>
-            <div class="post-status scheduled">Scheduled to
-              <%= post.published_at.strftime("%b, %d %Y") %>
-            </div>
-          <% elsif post.published? %>
-            <div class="post-date">
-              <%= post.published_at.strftime("%b, %d %Y") %>
-            </div>
-          <% end %>
+          <div class="flex items-center gap-2">
+            <% if post.draft? %>
+              <div class="post-status draft">[DRAFT]</div>
+            <% elsif post.scheduled? %>
+              <div class="post-status scheduled">[SCHED: <%= post.published_at.strftime("%Y-%m-%d") %>]</div>
+            <% elsif post.published? %>
+              <div class="post-date">
+                <%= post.published_at.strftime("%Y-%m-%d") %>
+              </div>
+            <% end %>
+          </div>
         </div>
 
         <div class="content">
-          <p><%= truncate(post.content.to_plain_text, length: 150) %></p>
+          <p><%= truncate(post.content.to_plain_text, length: 180) %></p>
         </div>
       <% end %>
 
-      <div class="tags">
-        <p>Tags:
-          <%= raw post.tag_list.map { |t| link_to t, tag_path(t) }.join(", ") %></p>
-      </div>
+      <% if post.tag_list.any? %>
+        <div class="tags">
+          <span class="text-[#565f89]">tags:</span>
+          <% post.tag_list.each do |t| %>
+            <%= link_to "##{t}", tag_path(t), class: "tui-tag" %>
+          <% end %>
+        </div>
+      <% end %>
     </div>
   <% end %>
 <% end %>

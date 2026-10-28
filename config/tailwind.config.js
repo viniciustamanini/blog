@@ -10,7 +10,30 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        system: ["system-ui"],
+        system: [
+          "JetBrains Mono",
+          "Fira Code",
+          "ui-monospace",
+          "SFMono-Regular",
+          "Menlo",
+          "Monaco",
+          "Consolas",
+          "Liberation Mono",
+          "Courier New",
+          "monospace",
+        ],
+        mono: [
+          "JetBrains Mono",
+          "Fira Code",
+          "ui-monospace",
+          "SFMono-Regular",
+          "Menlo",
+          "Monaco",
+          "Consolas",
+          "Liberation Mono",
+          "Courier New",
+          "monospace",
+        ],
         sans: ["Inter var", ...defaultTheme.fontFamily.sans],
       },
       maxWidth: {

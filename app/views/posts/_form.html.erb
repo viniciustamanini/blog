@@ -1,36 +1,44 @@
-<%= form_with model: post do |form| %>
+<%= form_with model: post, class: "space-y-5" do |form| %>
   <% if form.object.errors.any? %>
-    <div>
+    <div class="border border-[#f7768e] bg-[#f7768e]/10 text-[#f7768e] p-3 text-xs space-y-1">
+      <div class="font-bold uppercase">[ERR] Validation failed:</div>
       <% form.object.errors.full_messages.each do |message| %>
-        <div><%= message %></div>
+        <div>- <%= message %></div>
       <% end %>
     </div>
   <% end %>
 
   <div>
-    <%= form.label :title %>
-    <%= form.text_field :title %>
+    <%= form.label :title, "--title" %>
+    <%= form.text_field :title, class: "w-full", placeholder: "Post title..." %>
   </div>
 
   <div>
-    <%= form.label :content %>
+    <%= form.label :content, "--content (buffer)" %>
     <%= form.rich_text_area :content %>
   </div>
 
-  <div>
-    <%= form.label :published_at %>
-    <%= form.datetime_select :published_at, include_blank: true %>
+  <div class="border border-[#414868] bg-[#16161e] p-4 space-y-3">
+    <div>
+      <%= form.label :published_at, "--published-at" %>
+      <div class="flex flex-wrap gap-2 items-center">
+        <%= form.datetime_select :published_at, include_blank: true %>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-2 pt-2 border-t border-dashed border-[#414868]">
+      <%= check_box_tag :auto_fill_date, "1", false, id: "auto_fill_date_checkbox" %>
+      <%= form.label :auto_fill_date, "Set to current timestamp (now)", class: "!mb-0 cursor-pointer" %>
+    </div>
   </div>
 
   <div>
-    <%= form.label :auto_fill_date, "Today" %>
-    <%= check_box_tag :auto_fill_date, "1", false, id: "auto_fill_date_checkbox" %>
+    <%= form.label :tag_list, "--tags (comma separated)" %>
+    <%= form.text_field :tag_list, class: "w-full", placeholder: "ruby, rails, linux" %>
   </div>
 
-  <div>
-    <%= form.label :tag_list, "Tags" %>
-    <%= form.text_field :tag_list %>
+  <div class="pt-2 flex items-center gap-3">
+    <%= form.button ":wq (Save)", class: "tui-btn-primary" %>
+    <%= link_to ":q! (Cancel)", root_path, class: "tui-btn" %>
   </div>
-
-  <%= form.button %>
 <% end %>

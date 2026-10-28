@@ -1,21 +1,21 @@
-<div class="skill-fields">
+<div class="skill-fields border border-[#414868] bg-[#1f2335] p-3 space-y-3" data-nested-item>
   <%= f.hidden_field :id %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
+  <%= f.hidden_field :_destroy %>
 
-  <%= f.label :proficiency_level %>
-  <%= f.number_field :proficiency_level, max: 5 %>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+    <div>
+      <%= f.label :name %>
+      <%= f.text_field :name, class: "w-full" %>
+    </div>
+    <div>
+      <%= f.label :proficiency_level, "Proficiency Level (1-5)" %>
+      <%= f.number_field :proficiency_level, min: 1, max: 5, class: "w-full" %>
+    </div>
+  </div>
 
-  <%= f.check_box :_destroy %>
-  <%= f.label :_destroy, "Remove" %>
+  <div class="flex justify-end pt-1">
+    <button type="button" class="tui-btn-danger" data-remove-nested>
+      [x] Remove Skill
+    </button>
+  </div>
 </div>
-
-<button
-  type="button"
-  class="
-    add-skill-btn bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4
-    rounded
-  "
->
-  Add Skill
-</button>

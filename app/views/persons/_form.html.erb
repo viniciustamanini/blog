@@ -1,62 +1,130 @@
-<%= form_with model: person do |form| %>
+<%= form_with model: person, class: "space-y-5" do |form| %>
   <% if form.object.errors.any? %>
-    <div>
+    <div class="border border-[#f7768e] bg-[#f7768e]/10 text-[#f7768e] p-3 text-xs space-y-1">
+      <div class="font-bold uppercase">[ERR] Validation failed:</div>
       <% form.object.errors.full_messages.each do |message| %>
-        <div><%= message %></div>
+        <div>- <%= message %></div>
       <% end %>
     </div>
-  <% end %> 
-
-  <div>
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div>
-    <%= form.label :email %>
-    <%= form.email_field :email %>
-  </div>
-
-  <div>
-    <%= form.label :phone %>
-    <%= form.text_field :phone %>
-  </div>
-
-  <div>
-    <%= form.label :role %>
-    <%= form.text_field :role %>
-  </div>
-
-  <div>
-    <%= form.label :summary %>
-    <%= form.text_area :summary %>
-  </div>
-
-  <h1> Educations </h1>
-  <%= form.fields_for :educations do |education_form| %>
-    <%= render 'education_fields', f: education_form %>
   <% end %>
-  <%= link_to 'Add Education', '#', class: 'btn btn-secondary mt-2', data: { target: 'add-education' } %>
 
-  <h1> Certificates </h1>
-  <%= form.fields_for :certificates do |certificate_form| %>
-    <%= render 'certificate_fields', f: certificate_form %>
-  <% end %>
-  <%= link_to 'Add Certificate', '#', class: 'btn btn-secondary mt-2', data: { target: 'add-certificate' } %>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div>
+      <%= form.label :name, "--name" %>
+      <%= form.text_field :name, class: "w-full" %>
+    </div>
 
-  <h1> Experiences </h1>
-  <%= form.fields_for :professional_experiences do |experience_form| %>
-    <%= render 'professional_experience_fields', f: experience_form %>
-  <% end %>
-  <%= link_to 'Add Experience', '#', class: 'btn btn-secondary mt-2', data: { target: 'add-experience' } %>
+    <div>
+      <%= form.label :role, "--role" %>
+      <%= form.text_field :role, class: "w-full" %>
+    </div>
 
-  <h1> Skills </h1>
-  <%= form.fields_for :skills do |skill_form| %>
-    <%= render 'skill_fields', f: skill_form %>
-  <% end %>
-  <%= link_to 'Add Skill', '#', class: 'btn btn-secondary mt-2', data: { target: 'add-skill' } %>
+    <div>
+      <%= form.label :email, "--email" %>
+      <%= form.email_field :email, class: "w-full" %>
+    </div>
+
+    <div>
+      <%= form.label :phone, "--phone" %>
+      <%= form.text_field :phone, class: "w-full" %>
+    </div>
+  </div>
 
   <div>
-    <%= form.submit "Save", class: "btn btn-primary" %>
+    <%= form.label :summary, "--summary" %>
+    <%= form.text_area :summary, rows: 4, class: "w-full" %>
+  </div>
+
+  <div class="border border-[#414868] bg-[#16161e] p-4 space-y-3">
+    <h2 class="text-xs font-bold uppercase tracking-widest text-[#9ece6a]">──[ Educations ]</h2>
+    <div id="educations-list" class="space-y-3">
+      <%= form.fields_for :educations do |education_form| %>
+        <%= render "education_fields", f: education_form %>
+      <% end %>
+    </div>
+    <template id="education-template">
+      <%= form.fields_for :educations, Education.new, child_index: "NEW_RECORD" do |education_form| %>
+        <%= render "education_fields", f: education_form %>
+      <% end %>
+    </template>
+    <button
+      type="button"
+      class="tui-btn"
+      data-add-nested="educations-list"
+      data-template-id="education-template"
+    >
+      [+ Add Education]
+    </button>
+  </div>
+
+  <div class="border border-[#414868] bg-[#16161e] p-4 space-y-3">
+    <h2 class="text-xs font-bold uppercase tracking-widest text-[#9ece6a]">──[ Certificates ]</h2>
+    <div id="certificates-list" class="space-y-3">
+      <%= form.fields_for :certificates do |certificate_form| %>
+        <%= render "certificate_fields", f: certificate_form %>
+      <% end %>
+    </div>
+    <template id="certificate-template">
+      <%= form.fields_for :certificates, Certificate.new, child_index: "NEW_RECORD" do |certificate_form| %>
+        <%= render "certificate_fields", f: certificate_form %>
+      <% end %>
+    </template>
+    <button
+      type="button"
+      class="tui-btn"
+      data-add-nested="certificates-list"
+      data-template-id="certificate-template"
+    >
+      [+ Add Certificate]
+    </button>
+  </div>
+
+  <div class="border border-[#414868] bg-[#16161e] p-4 space-y-3">
+    <h2 class="text-xs font-bold uppercase tracking-widest text-[#9ece6a]">──[ Experiences ]</h2>
+    <div id="experiences-list" class="space-y-3">
+      <%= form.fields_for :professional_experiences do |experience_form| %>
+        <%= render "professional_experience_fields", f: experience_form %>
+      <% end %>
+    </div>
+    <template id="experience-template">
+      <%= form.fields_for :professional_experiences, ProfessionalExperience.new, child_index: "NEW_RECORD" do |experience_form| %>
+        <%= render "professional_experience_fields", f: experience_form %>
+      <% end %>
+    </template>
+    <button
+      type="button"
+      class="tui-btn"
+      data-add-nested="experiences-list"
+      data-template-id="experience-template"
+    >
+      [+ Add Experience]
+    </button>
+  </div>
+
+  <div class="border border-[#414868] bg-[#16161e] p-4 space-y-3">
+    <h2 class="text-xs font-bold uppercase tracking-widest text-[#9ece6a]">──[ Skills ]</h2>
+    <div id="skills-list" class="space-y-3">
+      <%= form.fields_for :skills do |skill_form| %>
+        <%= render "skill_fields", f: skill_form %>
+      <% end %>
+    </div>
+    <template id="skill-template">
+      <%= form.fields_for :skills, Skill.new, child_index: "NEW_RECORD" do |skill_form| %>
+        <%= render "skill_fields", f: skill_form %>
+      <% end %>
+    </template>
+    <button
+      type="button"
+      class="tui-btn"
+      data-add-nested="skills-list"
+      data-template-id="skill-template"
+    >
+      [+ Add Skill]
+    </button>
+  </div>
+
+  <div class="pt-2 flex items-center gap-3">
+    <%= form.submit ":wq (Save)", class: "tui-btn-primary" %>
+    <%= link_to ":q! (Cancel)", persons_path, class: "tui-btn" %>
   </div>
 <% end %>
